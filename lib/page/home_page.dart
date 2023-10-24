@@ -323,17 +323,24 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         // 开始运行
         TextButton(
-          onPressed: () {
+          onPressed: () async {
             switch (valueAlgorithm) {
               case '时间片轮转':
-                roundRobin();
-                break;
+                {
+                  roundRobin();
+                  // print('currentId: $currentId[0], $currentId[1]');
+                  while (currentId[0] != -1 || currentId[1] != -1) {
+                    await Future.delayed(const Duration(milliseconds: 500));
+                    roundRobin();
+                  }
+                  break;
+                }
               case '优先级调度':
                 prioritySchedulingAlgorithm();
                 break;
             }
           },
-          child: const Text('运行到下一步'),
+          child: const Text('开始运行'),
         ),
         // 重新开始
         TextButton(
