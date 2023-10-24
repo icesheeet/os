@@ -353,14 +353,6 @@ class _MyHomePageState extends State<MyHomePage> {
           },
           child: const Text('重新开始'),
         ),
-        TextButton(
-          onPressed: () {},
-          child: const Text('暂停运行'),
-        ),
-        TextButton(
-          onPressed: () {},
-          child: const Text('数据分析（TODO）'),
-        ),
         // 退出
         TextButton(
           onPressed: () {
@@ -400,8 +392,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 applicationVersion: '1.0.0',
                 applicationIcon: Icon(Icons.web),
                 children: [
-                  Text('作者：葛兴海'),
-                  Text('学号：211540378'),
+                  Text('作者: 葛兴海'),
+                  Text('学号: 211540378'),
                 ],
               ),
             );
