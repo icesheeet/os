@@ -40,8 +40,9 @@ class Manual extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('下一执行CPU计算进程：${currentId[0] == -1 ? '无' : currentId[0]}'),
-              Text('下一执行IO操作进程：${currentId[1] == -1 ? '无' : currentId[1]}'),
+              Text(
+                  '下一执行CPU计算进程：${currentId[0] == -1 ? '无' : currentId[0] + 1}'),
+              Text('下一执行IO操作进程：${currentId[1] == -1 ? '无' : currentId[1] + 1}'),
             ],
           ),
         ),

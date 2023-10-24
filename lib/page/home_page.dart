@@ -39,7 +39,7 @@ class _MyHomePageState extends State<MyHomePage> {
         continue;
       }
       if (timeSlice[timeSliceId].keys.first == 1) {
-        return pcbs[indexTemp].pid! + 1;
+        return pcbs[indexTemp].pid!;
       }
     }
     return -1;
@@ -49,7 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int getNextIoId(List<int> currentId) {
     // 循环pcbs.length次，如果没有找到下一个IO运行的进程，返回-1
     for (int index = currentId[1] + 1;
-        index < pcbs.length + currentId[1] - 1;
+        index < pcbs.length + currentId[1] + 1;
         index++) {
       int indexTemp = index % pcbs.length;
       var timeSlice = pcbs[indexTemp].timeSlice;
@@ -61,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
         continue;
       }
       if (timeSlice[timeSliceId].keys.first == 0) {
-        return pcbs[indexTemp].pid! + 1;
+        return pcbs[indexTemp].pid!;
       }
     }
     return -1;
@@ -86,21 +86,21 @@ class _MyHomePageState extends State<MyHomePage> {
         // 删除当前进程的第一个时间片
         timeSlice.removeAt(timeSliceId);
       }
-      // timeSliceId = 0;
-      // if (currentId[1]!=-1){
-      //   var timeSlice = pcbs[currentId[1]].timeSlice;
-      //   while (timeSlice[timeSliceId].keys.first == -1) {
-      //     timeSliceId++;
-      //   }
-      //   // 更新已完成
-      //   timeSlice[0]
-      //       .update(-1, (value) => value + timeSlice[timeSliceId].values.first);
-      //   // 更新当前进程的完成百分比
-      //   pcbs[currentId[1]].curretPercent =
-      //       timeSlice[0].values.first / pcbs[currentId[1]].needTime!;
-      //   // 删除当前进程的第一个时间片
-      //   timeSlice.removeAt(timeSliceId);
-      // }
+      timeSliceId = 0;
+      if (currentId[1] != -1) {
+        var timeSlice = pcbs[currentId[1]].timeSlice;
+        while (timeSlice[timeSliceId].keys.first == -1) {
+          timeSliceId++;
+        }
+        // 更新已完成
+        timeSlice[0]
+            .update(-1, (value) => value + timeSlice[timeSliceId].values.first);
+        // 更新当前进程的完成百分比
+        pcbs[currentId[1]].curretPercent =
+            timeSlice[0].values.first / pcbs[currentId[1]].needTime!;
+        // 删除当前进程的第一个时间片
+        timeSlice.removeAt(timeSliceId);
+      }
     }
     currentId[0] = getNextCpuId(currentId);
     currentId[1] = getNextIoId(currentId);
@@ -247,8 +247,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   return Colors.blue;
                               }
                             }(),
-                            child: Text(
-                                '${pcbs[index].timeSlice[index2].values.first}'),
+                            // child: Text(
+                            //     '${pcbs[index].timeSlice[index2].values.first}'),
                           );
                         },
                       ),
