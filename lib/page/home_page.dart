@@ -55,8 +55,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return -1;
   }
 
-  // 时间片轮转调度
-  void timeSliceRoundRobin() {
+  // 时间片轮转调度(RR)
+  void roundRobin() {
     // 不是所有进程都已经完成
     if (!pcbs.every((element) => (element.status == '完成'))) {
       int timeSliceId = 0;
@@ -105,6 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
       pcbs = pcbs;
     });
   }
+
+  // 优先级调度(PSA)
+  void prioritySchedulingAlgorithm() {}
 
   @override
   Widget build(BuildContext context) {
@@ -323,9 +326,10 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             switch (valueAlgorithm) {
               case '时间片轮转':
-                timeSliceRoundRobin();
+                roundRobin();
                 break;
               case '优先级调度':
+                prioritySchedulingAlgorithm();
                 break;
             }
           },

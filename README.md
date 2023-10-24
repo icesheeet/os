@@ -1,16 +1,8 @@
-# os_flutter
+操作系统课程设计
 
-A new Flutter project.
+实现了两种调度算法
 
-## Getting Started
+* 时间片轮转
+* 优先级调度
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+！！！基于web开发，在其他平台运行可能显示异常。
