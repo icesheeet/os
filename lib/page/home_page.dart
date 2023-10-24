@@ -31,16 +31,10 @@ class _MyHomePageState extends State<MyHomePage> {
         index++) {
       int indexTemp = index % pcbs.length;
       var timeSlice = pcbs[indexTemp].timeSlice;
-      int timeSliceId = 0;
-      while (timeSlice[timeSliceId].keys.first == -1) {
-        timeSliceId++;
-      }
-      if (timeSliceId > timeSlice.length) {
+      if (timeSlice.length == 1 || timeSlice[1].keys.first != 1) {
         continue;
       }
-      if (timeSlice[timeSliceId].keys.first == 1) {
-        return pcbs[indexTemp].pid!;
-      }
+      return pcbs[indexTemp].pid!;
     }
     return -1;
   }
@@ -53,16 +47,10 @@ class _MyHomePageState extends State<MyHomePage> {
         index++) {
       int indexTemp = index % pcbs.length;
       var timeSlice = pcbs[indexTemp].timeSlice;
-      int timeSliceId = 0;
-      while (timeSlice[timeSliceId].keys.first == -1) {
-        timeSliceId++;
-      }
-      if (timeSliceId > timeSlice.length) {
+      if (timeSlice.length == 1 || timeSlice[1].keys.first != 0) {
         continue;
       }
-      if (timeSlice[timeSliceId].keys.first == 0) {
-        return pcbs[indexTemp].pid!;
-      }
+      return pcbs[indexTemp].pid!;
     }
     return -1;
   }
@@ -85,6 +73,10 @@ class _MyHomePageState extends State<MyHomePage> {
             timeSlice[0].values.first / pcbs[currentId[0]].needTime!;
         // 删除当前进程的第一个时间片
         timeSlice.removeAt(timeSliceId);
+        // 如果当前进程已经完成，更新状态
+        if (timeSlice[0].values.first == pcbs[currentId[0]].needTime) {
+          pcbs[currentId[0]].status = '完成';
+        }
       }
       timeSliceId = 0;
       if (currentId[1] != -1) {
@@ -100,6 +92,10 @@ class _MyHomePageState extends State<MyHomePage> {
             timeSlice[0].values.first / pcbs[currentId[1]].needTime!;
         // 删除当前进程的第一个时间片
         timeSlice.removeAt(timeSliceId);
+        // 如果当前进程已经完成，更新状态
+        if (timeSlice[0].values.first == pcbs[currentId[1]].needTime) {
+          pcbs[currentId[1]].status = '完成';
+        }
       }
     }
     currentId[0] = getNextCpuId(currentId);
@@ -310,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
               }
               pcb.needTime = timeSliceSum;
               pcbs.add(pcb);
-              print('进程$i创建成功');
+              // print('进程$i创建成功');
             }
 
             currentId[0] = getNextCpuId(currentId);
